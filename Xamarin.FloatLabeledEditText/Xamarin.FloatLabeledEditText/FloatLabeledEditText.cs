@@ -3,6 +3,7 @@ using Android.Animation;
 using Android.Annotation;
 using Android.Content;
 using Android.Content.Res;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
@@ -11,6 +12,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using Exception = System.Exception;
 
 namespace Xamarin.FloatLabeledEditText
 {
@@ -69,7 +71,8 @@ namespace Xamarin.FloatLabeledEditText
       var paddingRight = a.GetDimensionPixelSize(Resource.Styleable.FloatLabeledEditText_fletPaddingRight, 0);
       var paddingBottom = a.GetDimensionPixelSize(Resource.Styleable.FloatLabeledEditText_fletPaddingBottom, 0);
       var background = a.GetDrawable(Resource.Styleable.FloatLabeledEditText_fletBackground);
-
+      var useAccentColor = a.GetBoolean(Resource.Styleable.FloatLabeledEditText_fletUseAccentColor, false);
+      
       if (padding != 0)
       {
         _hintTextView.SetPadding(padding, padding, padding, padding);
@@ -87,6 +90,13 @@ namespace Xamarin.FloatLabeledEditText
       _hintTextView.SetTextAppearance(_context,
         a.GetResourceId(Resource.Styleable.FloatLabeledEditText_fletTextAppearance,
           Android.Resource.Style.TextAppearanceSmall));
+
+      if (useAccentColor)
+      {
+        Color? fletAccentColor;
+        if (fetchAccentColor(out fletAccentColor) && fletAccentColor.HasValue)
+          _hintTextView.SetTextColor(fletAccentColor.Value);
+      }
 
       //Start hidden
       _hintTextView.Visibility = ViewStates.Invisible;
@@ -110,6 +120,34 @@ namespace Xamarin.FloatLabeledEditText
       }
     }
 
+    private bool fetchAccentColor(out Color? color)
+    {
+      color = null;
+      try
+      {
+        //Stock Material colorAccent
+        var ident = _context.Resources.GetIdentifier("android:colorAccent", "attr", null);
+
+        if (ident == 0)
+          //AppCompat Material colorAccent
+          ident = _context.Resources.GetIdentifier("colorAccent", "attr", null);
+
+        if (ident == 0)
+          return false;
+
+        var a = _context.ObtainStyledAttributes(new[] { ident });
+
+        color = a.GetColor(0, 0);
+
+        a.Recycle();
+
+        return true;
+      }
+      catch (Exception)
+      {
+        return false;
+      }
+    }
 
     public override void AddView(View child, int index, ViewGroup.LayoutParams @params)
     {

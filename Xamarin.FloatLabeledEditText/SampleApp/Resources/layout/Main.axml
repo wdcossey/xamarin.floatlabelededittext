@@ -4,8 +4,9 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-  <Xamarin.FloatLabeledEditText.FloatLabeledEditText
-      android:layout_width="match_parent"
+    <Xamarin.FloatLabeledEditText.FloatLabeledEditText
+        app:fletUseAccentColor="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
             android:layout_width="match_parent"
@@ -13,8 +14,8 @@
             android:hint="This is the hint" />
     </Xamarin.FloatLabeledEditText.FloatLabeledEditText>
 <!-- add some padding -->
-  <Xamarin.FloatLabeledEditText.FloatLabeledEditText
-      android:layout_width="match_parent"
+    <Xamarin.FloatLabeledEditText.FloatLabeledEditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:fletPadding="10dp">
         <EditText
@@ -23,8 +24,8 @@
             android:hint="Username" />
     </Xamarin.FloatLabeledEditText.FloatLabeledEditText>
 <!-- password input -->
-  <Xamarin.FloatLabeledEditText.FloatLabeledEditText
-      android:layout_width="match_parent"
+    <Xamarin.FloatLabeledEditText.FloatLabeledEditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:fletPaddingBottom="10dp">
         <EditText
@@ -34,8 +35,8 @@
             android:inputType="textPassword" />
     </Xamarin.FloatLabeledEditText.FloatLabeledEditText>
 <!-- change color of hint text-->
-  <Xamarin.FloatLabeledEditText.FloatLabeledEditText
-      android:layout_width="match_parent"
+    <Xamarin.FloatLabeledEditText.FloatLabeledEditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:fletPaddingBottom="10dp"
         app:fletTextAppearance="@style/floatlabelededittext">
